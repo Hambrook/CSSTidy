@@ -788,7 +788,9 @@ class csstidy {
 									$this->value .= ((!strlen($this->value) OR substr($this->value,-1,1)==',')?'':' ').$sub;
 							}
 
-							$this->selector = trim($this->selector);
+							if (strncmp($this->selector,"@font-face",10)!==0) {
+								$this->selector = trim($this->selector);
+							}
 							$this->optimise->value();
 
 							$valid = csstidy::property_is_valid($this->property);
