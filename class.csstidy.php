@@ -278,6 +278,8 @@ class csstidy {
 			preserve order by default cause it can break functionnality
 		 */
 		$this->settings['sort_selectors'] = 0;
+		/* properties override previously declared properties for the same selector */
+		$this->settings['override_properties'] = 0;
 		/* is dangeroues to be used: CSS is broken sometimes */
 		$this->settings['merge_selectors'] = 0;
 		/* preserve or not browser hacks */
@@ -789,6 +791,9 @@ class csstidy {
 							}
 
 							if (strncmp($this->selector,"@font-face",10)!==0) {
+								$this->selector = trim($this->selector);
+							}
+							if ($this->get_cfg('override_properties') && !strstr($this->selector, "font-face")) {
 								$this->selector = trim($this->selector);
 							}
 							$this->optimise->value();
